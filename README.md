@@ -79,6 +79,20 @@ Run tests:
 npm test
 ```
 
+## Docker
+
+Build the image:
+
+```bash
+docker build -t candidate-validation-api .
+```
+
+Run the container on port `3000`, accessible only from the VPS itself:
+
+```bash
+docker run --rm -p 127.0.0.1:3000:3000 candidate-validation-api
+```
+
 ## Project structure
 
 ```text
