@@ -93,6 +93,22 @@ Run the container on port `3000`, accessible only from the VPS itself:
 docker run --rm -p 127.0.0.1:3000:3000 candidate-validation-api
 ```
 
+## Docker Compose
+
+The existing external Docker network `n8n_default` is required.
+
+Start the service:
+
+```bash
+docker compose up -d --build
+```
+
+Update the service after project changes:
+
+```bash
+docker compose up -d --build
+```
+
 ## Project structure
 
 ```text
