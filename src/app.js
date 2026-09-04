@@ -4,6 +4,10 @@ const app = express();
 
 app.use(express.json());
 
+app.get('/health', (req, res) => {
+  return res.json({ status: 'ok' });
+});
+
 app.post('/candidates/validate', (req, res) => {
   const { score } = req.body || {};
   let normalizedScore;

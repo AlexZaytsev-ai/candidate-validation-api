@@ -1,6 +1,16 @@
 const request = require('supertest');
 const app = require('../src/app');
 
+describe('GET /health', () => {
+  test('returns the API health status', async () => {
+    const response = await request(app)
+      .get('/health')
+      .expect(200);
+
+    expect(response.body).toEqual({ status: 'ok' });
+  });
+});
+
 describe('POST /candidates/validate', () => {
   test.each([
     [0, 'manual_review'],
