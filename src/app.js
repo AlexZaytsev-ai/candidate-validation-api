@@ -12,9 +12,7 @@ app.post('/candidates/validate', (req, res) => {
   const { score } = req.body || {};
   let normalizedScore;
 
-  if (score === undefined || score === null) {
-    normalizedScore = 0;
-  } else if (typeof score === 'number') {
+  if (typeof score === 'number') {
     normalizedScore = score;
   } else if (typeof score === 'string' && score.trim() !== '') {
     normalizedScore = Number(score);
@@ -27,7 +25,11 @@ app.post('/candidates/validate', (req, res) => {
   }
 
   return res.json({
-    status: normalizedScore < 90 ? 'manual_review' : 'approved'
+    status: normalizedScore < 50
+      ? 'rejected'
+      : normalizedScore < 90
+        ? 'manual_review'
+        : 'approved'
   });
 });
 

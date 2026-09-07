@@ -13,13 +13,13 @@ describe('GET /health', () => {
 
 describe('POST /candidates/validate', () => {
   test.each([
-    [0, 'manual_review'],
+    [0, 'rejected'],
+    [49, 'rejected'],
+    [50, 'manual_review'],
     [89, 'manual_review'],
     [90, 'approved'],
     [100, 'approved'],
-    ['90', 'approved'],
-    [undefined, 'manual_review'],
-    [null, 'manual_review']
+    ['90', 'approved']
   ])('score %p returns %s', async (score, status) => {
     const payload = score === undefined ? {} : { score };
 
@@ -31,7 +31,7 @@ describe('POST /candidates/validate', () => {
     expect(response.body).toEqual({ status });
   });
 
-  test.each([-1, 101, 'not-a-number'])('rejects invalid score %p', async (score) => {
+  test.each([-1, 101, 'not-a-number', undefined, null])('rejects invalid score %p', async (score) => {
     await request(app)
       .post('/candidates/validate')
       .send({ score })
