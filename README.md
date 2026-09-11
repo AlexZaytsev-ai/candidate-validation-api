@@ -21,25 +21,27 @@ Send a JSON request body with an optional `score` field:
 }
 ```
 
-## Score normalization and validation
+## Score Validation
 
-- A missing `score` or `null` is treated as `0`.
-- A non-empty numeric string is converted to a number.
-- Finite scores from `0` to `100`, inclusive, are accepted.
-- A negative score, a score above `100`, a non-numeric or empty string, and other unsupported values are rejected with `400 Bad Request`.
+The API accepts a numeric `score` from `0` to `100`.
 
-For accepted scores:
+* A non-empty numeric string such as `"90"` is converted to a number.
+* A missing or `null` score is rejected with `400 Bad Request`.
+* Negative values, scores above `100`, and non-numeric values are rejected with `400 Bad Request`.
 
-- `score < 90` returns `manual_review`.
-- `score >= 90` returns `approved`.
+Status rules:
 
-## Response examples
+* `0–49` → `rejected`
+* `50–89` → `manual_review`
+* `90–100` → `approved`
 
-Approved:
+## Response Examples
+
+Rejected:
 
 ```json
 {
-  "status": "approved"
+  "status": "rejected"
 }
 ```
 
@@ -51,13 +53,22 @@ Manual review:
 }
 ```
 
-Invalid score (`400 Bad Request`):
+Approved:
+
+```json
+{
+  "status": "approved"
+}
+```
+
+Invalid score — `400 Bad Request`:
 
 ```json
 {
   "error": "Invalid score"
 }
 ```
+
 
 ## Local development
 
