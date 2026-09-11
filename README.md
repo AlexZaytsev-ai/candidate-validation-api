@@ -1,6 +1,6 @@
 # Candidate Validation API
 
-A minimal Express API that validates a candidate score and returns a review decision.
+REST API for validating candidate scores with deterministic status rules, automated tests, and Docker deployment.
 
 ## Technologies
 
