@@ -13,7 +13,7 @@ REST API for validating candidate scores with deterministic status rules, automa
 
 `POST http://localhost:3000/candidates/validate`
 
-Send a JSON request body with an optional `score` field:
+Send a JSON request body with a required score field:
 
 ```json
 {
